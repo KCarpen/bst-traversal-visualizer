@@ -1,0 +1,19 @@
+{
+  "name": "sorting-algorithm-visualizer",
+  "version": "1.0.0",
+  "description": "# Codesmith solo project ",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KCarpen/sorting-algorithm-visualizer.git"
+  },
+  "author": "KCarpen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KCarpen/sorting-algorithm-visualizer/issues"
+  },
+  "homepage": "https://github.com/KCarpen/sorting-algorithm-visualizer#readme"
+}
