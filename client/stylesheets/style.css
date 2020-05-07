@@ -120,8 +120,8 @@ body {
 #reset:hover {
   cursor: pointer;
   background-color: #808080;
-  border: 1px solid #808080;
-  box-shadow: 2px 2px 7px #595959;
+  border: 1px solid white;
+  box-shadow: 2px 2px 7px 2px #595959;
   font-size: 1.02em;
 }
 

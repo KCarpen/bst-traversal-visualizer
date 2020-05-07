@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const animeDuration = 400;
+const animeDuration = 500;
 
 function resetTraversal(){
   d3.selectAll('.node')
@@ -47,19 +47,61 @@ function preOrder(data) {
   }
 }
 
-function helperFunc(data){
-
-  const array = [];
-  for (let key in data){
-    if (key === 'value'){
-      array.push(data)
+function inHelperFunc(data){
+  let array = [];
+  for (let elem of data){
+    if (typeof(elem.value) === 'number'){
+      let obj = {};
+      obj['value'] = elem.value
+      array.push(obj);
+    }
+    if (elem.children.length > 0){
+      array = array.concat(inHelperFunc(elem.children))
     }
   }
+  return array;
 }
 
 function inOrder(data){
   resetTraversal();
+  const array = inHelperFunc(data);
+  const sortedArray = array.sort((a,b) => a.value - b.value);
+  let animFactor = 0;
 
+  for (let element of array){
+    visitElement(element, animFactor);
+    animFactor += 1;
+  }
+}
+
+function postHelperFunc(data){
+  let array = [];
+  for (let elem of data) {
+    if (elem.children.length === 0){
+      if (typeof(elem.value) === 'number'){
+        let obj = {};
+        obj['value'] = elem.value;
+        array.push(obj)
+      }
+    } else {
+      array = array.concat(postHelperFunc(elem.children));
+      let obj = {};
+      obj['value'] = elem.value;
+      array.push(obj);
+    }
+  }
+  return array;
+}
+
+function postOrder(data){
+  resetTraversal();
+  const array = postHelperFunc(data);
+  let animFactor = 0;
+
+  for (let element of array) {
+    visitElement(element, animFactor);
+    animFactor += 1;
+  }
 }
 
 function bfs(data) {
@@ -83,4 +125,4 @@ function bfs(data) {
 }
 
 
-export { resetTraversal, bfs, preOrder, inOrder }
+export { resetTraversal, bfs, preOrder, inOrder, postOrder }
