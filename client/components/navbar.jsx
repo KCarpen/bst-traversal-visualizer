@@ -5,7 +5,11 @@ function Navbar() {
 
   return (
     <div className='navbar'>
-      <div id='title'> BST Traversal Visualizer </div>
+      <center>
+        <div className='titleContainer'>
+          <div id='title'> BST Traversal Visualizer </div>
+        </div>
+      </center>
     </div>
   )
 }

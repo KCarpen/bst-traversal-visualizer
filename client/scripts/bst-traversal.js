@@ -36,13 +36,30 @@ function preOrder(data) {
   while (stack.length !== 0) {
     let element = stack.pop();
     visitElement(element, animFactor);
-    animFactor += 1;
+    if (typeof(element.value) === 'number') {
+      animFactor += 1;
+    }
     if (element.children.length !== 0) {
       for (let i = 0; i < element.children.length; i++) {
         stack.push(element.children[element.children.length - i - 1]);
       }
     }
   }
+}
+
+function helperFunc(data){
+
+  const array = [];
+  for (let key in data){
+    if (key === 'value'){
+      array.push(data)
+    }
+  }
+}
+
+function inOrder(data){
+  resetTraversal();
+
 }
 
 function bfs(data) {
@@ -54,7 +71,9 @@ function bfs(data) {
   while (queue.length !== 0) {
     let element = queue.shift();
     visitElement(element, animFactor);
-    animFactor += 1;
+    if (typeof(element.value) === 'number'){
+      animFactor += 1;
+    }
     if (element.children.length !== 0) {
       for (let i = 0; i < element.children.length; i++) {
         queue.push(element.children[i]);
@@ -64,4 +83,4 @@ function bfs(data) {
 }
 
 
-export { resetTraversal, bfs, preOrder }
+export { resetTraversal, bfs, preOrder, inOrder }

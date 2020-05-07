@@ -10,6 +10,13 @@ body {
   height: 3.5em;
 }
 
+.titleContainer{
+  height: 100%;
+  width: 100%;
+  background-color: #1a1a1a;
+  box-shadow: 2px 2px 7px 2px #808080;
+}
+
 #title {
   font-size: 2.5em;
   color: white;
@@ -45,7 +52,7 @@ body {
   padding: 0.5em;
   border-radius: 5px;
   border: 1px solid #e6e6e6;
-  box-shadow: 2px 2px 7px #808080;
+  box-shadow: 2px 2px 7px 2px #808080;
   outline: none;
 }
 
@@ -53,7 +60,7 @@ body {
   cursor: pointer;
   background-color: #d9d9d9;
   border: 1px solid #808080;
-  box-shadow: 2px 2px 7px #595959;
+  box-shadow: 2px 2px 7px 2px #595959;
   font-size: 1.02em;
 }
 
@@ -65,7 +72,7 @@ body {
   padding: 0.5em;
   border-radius: 5px;
   border: 1px solid #e6e6e6;
-  box-shadow: 2px 2px 7px #a6a6a6;
+  box-shadow: 2px 2px 7px 2px #a6a6a6;
   outline: none;
 }
 
@@ -73,7 +80,7 @@ body {
   cursor: pointer;
   background-color: #d9d9d9;
   border: 1px solid #808080;
-  box-shadow: 2px 2px 7px #595959;
+  box-shadow: 2px 2px 7px 2px #595959;
   font-size: 1.02em;
 }
 
@@ -85,7 +92,7 @@ body {
   padding: 0.5em;
   border-radius: 5px;
   border: 1px solid #e6e6e6;
-  box-shadow: 2px 2px 7px #a6a6a6;
+  box-shadow: 2px 2px 7px 2px #a6a6a6;
   outline: none;
 }
 
@@ -93,7 +100,7 @@ body {
   cursor: pointer;
   background-color: #d9d9d9;
   border: 1px solid #808080;
-  box-shadow: 2px 2px 7px #595959;
+  box-shadow: 2px 2px 7px 2px #595959;
   font-size: 1.02em;
 }
 
@@ -106,7 +113,7 @@ body {
   background-color: #999999;
   border-radius: 5px;
   border: 1px solid #e6e6e6;
-  box-shadow: 2px 2px 7px #a6a6a6;
+  box-shadow: 2px 2px 7px 2px #a6a6a6;
   outline: none;
 }
 
