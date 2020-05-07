@@ -1,7 +1,9 @@
 import * as d3 from 'd3';
+import { resetTraversal } from './bst-traversal'
 import '../stylesheets/style.css'
 
-// -------------------------Draw Tree------------------------------------//
+// **************** Draw Tree Layout ****************
+
 function drawTree(data) {
   // Set dimensions and margins for diagram
   let margin = {
@@ -54,6 +56,9 @@ function drawTree(data) {
   // Update
   function update(source) {
     // Assigns the x and y position for the nodes
+
+    resetTraversal();
+    
     let treeData = treemap(root);
 
     // Compute the new tree layout.
@@ -66,7 +71,7 @@ function drawTree(data) {
     });
 
     // **************** Nodes Section ****************
-
+    let counter = 0;
     // Update the nodes...
     let node = svg.selectAll('g.node')
       .data(nodes, function (d) {
@@ -81,6 +86,11 @@ function drawTree(data) {
         } else {
           return 'node'
         }
+      })
+      .attr('id', function(){
+        let id = `node${counter}`
+        counter += 1;
+        return id;
       })
       .attr("transform", function (d) {
         return "translate(" + source.x0 + "," + source.y0 + ")";
@@ -101,7 +111,7 @@ function drawTree(data) {
       .attr('dx', '0')
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', "central")
-      .text(function (d) {
+      .text(function(d) {
         if (isNaN(d.value)) {
           return "";
         }
@@ -114,14 +124,14 @@ function drawTree(data) {
     // Transition to the proper position for the nodes
     nodeUpdate.transition()
       .duration(duration)
-      .attr("transform", function (d) {
+      .attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
 
     // Update the node attributes and style
     nodeUpdate.select('circle.node')
       .attr('r', 30)
-      .style("fill", function (d) {
+      .style("fill", function(d) {
         return d._children ? "lightsteelblue" : "#fff";
       })
       .attr('cursor', 'pointer');
@@ -129,7 +139,7 @@ function drawTree(data) {
     // Remove any exiting nodes
     let nodeExit = node.exit().transition()
       .duration(duration)
-      .attr("transform", function (d) {
+      .attr("transform", function(d) {
         return "translate(" + source.x + "," + source.y + ")";
       })
       .remove();
