@@ -2,9 +2,12 @@ const path = require('path');
 
 module.exports = {
   mode : process.env.NODE_ENV,
-  entry : path.resolve(__dirname, 'client/index.js'),
+  entry : path.resolve(__dirname, './client/app.jsx'),
   devServer : {
     publicPath : '/build/',
+    proxy : {
+      '/' : 'http://localhost:3000'
+    }
   },
   output : {
     path : path.resolve(__dirname, 'build'),
@@ -23,7 +26,7 @@ module.exports = {
         }
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css$/i,
         exclude: /(node_modules)/,
         use: ['style-loader', 'css-loader']
       }
