@@ -71,7 +71,6 @@ function drawTree(data) {
     });
 
     // **************** Nodes Section ****************
-    let counter = 0;
     // Update the nodes...
     let node = svg.selectAll('g.node')
       .data(nodes, function (d) {
@@ -87,9 +86,8 @@ function drawTree(data) {
           return 'node'
         }
       })
-      .attr('id', function(){
-        let id = `node${counter}`
-        counter += 1;
+      .attr('id', function(d){
+        let id = `node${d.value}`
         return id;
       })
       .attr("transform", function (d) {
@@ -102,7 +100,13 @@ function drawTree(data) {
     nodeEnter.append('circle')
       .attr('class', 'node')
       .attr('r', 1e-6)
-      .style("fill", function (d) {
+      .attr('value', function (d) {
+        if (isNaN(d.value)) {
+          return "";
+        }
+        return d.data.value;
+      })
+      .style("fill", function(d) {
         return d._children ? "lightsteelblue" : "#fff";
       });
 
@@ -111,6 +115,12 @@ function drawTree(data) {
       .attr('dx', '0')
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', "central")
+      .attr('value', function(d){
+        if (isNaN(d.value)) {
+          return "";
+        }
+        return d.data.value;
+      })
       .text(function(d) {
         if (isNaN(d.value)) {
           return "";

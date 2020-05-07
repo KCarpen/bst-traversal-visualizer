@@ -55,8 +55,7 @@ class BinarySearchTree {
 }
 
 function randomNum() {
-  // return Math.ceil(Math.random() * 10) + 15;
-  return 7;
+  return Math.ceil(Math.random() * 10) + 15;
 }
 
 function randomValue() {

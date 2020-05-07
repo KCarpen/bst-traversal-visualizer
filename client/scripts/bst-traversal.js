@@ -15,26 +15,27 @@ function resetTraversal(){
       .attr('font', '2.5em')
 }
 
-function visitElement(animFactor) {
-  // d3.select("#node-"+element.id).classed("visited",true);
-  d3.select(`#node${animFactor}`)
+function visitElement(element, animFactor) {
+  d3.select(`#node${element.value}`)
     .select('text')
       .transition().duration(animeDuration).delay(animeDuration * animFactor)
       .attr("fill", "white");
 
-  d3.select(`#node${animFactor}`)
+  d3.select(`#node${element.value}`)
     .select('circle')
     .transition().duration(animeDuration).delay(animeDuration * animFactor)
     .style("fill", "black");
 }
 
-function bft(data) {
+function preOrder(data) {
+  resetTraversal();
+
   const stack = [];
   let animFactor = 0;
   stack.push(data.root);
   while (stack.length !== 0) {
     let element = stack.pop();
-    visitElement(animFactor);
+    visitElement(element, animFactor);
     animFactor += 1;
     if (element.children.length !== 0) {
       for (let i = 0; i < element.children.length; i++) {
@@ -44,11 +45,23 @@ function bft(data) {
   }
 }
 
-function dft(data) {
-  let stack = [];
-  let animX = 0;
+function bfs(data) {
+  resetTraversal();
 
+  let queue = [];
+  let animFactor = 0;
+  queue.push(data.root);
+  while (queue.length !== 0) {
+    let element = queue.shift();
+    visitElement(element, animFactor);
+    animFactor += 1;
+    if (element.children.length !== 0) {
+      for (let i = 0; i < element.children.length; i++) {
+        queue.push(element.children[i]);
+      }
+    }
+  }
 }
 
 
-export { resetTraversal, bft }
+export { resetTraversal, bfs, preOrder }
