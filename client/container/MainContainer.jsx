@@ -17,6 +17,7 @@ class MainContainer extends Component {
     const currentTree = document.querySelector('#currentTree');
     if (currentTree) {
       currentTree.remove();
+
     }
   }
   

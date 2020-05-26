@@ -17,7 +17,7 @@ function drawTree(data) {
   // append the svg object to the body of the page
   // appends a 'group' element to 'svg'
   // moves the 'group' element to the top left margin   
-  let svg = d3.select("#d3tree").append("svg")
+  let svg = d3.select("#d3tree").append('svg')
     .attr('id', 'currentTree')
     .attr("width", "100%")
     .attr("height", height + margin.top + margin.bottom)
