@@ -2,7 +2,7 @@ class Node {
   constructor(value) {
     this.value = value;
     this.children = []; // [null,null];
-    // left child: children[0], right child: children[1] 
+    // left child: children[0], right child: children[1]
   }
 }
 
@@ -28,7 +28,6 @@ class BinarySearchTree {
       }
       // value is less than current.value
       else if (value < currentNode.value) {
-
         if (currentNode.children[0] == null || currentNode.children[0].value === "e") {
           currentNode.children[0] = node;
           if (currentNode.children[1] == null) {

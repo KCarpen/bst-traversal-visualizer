@@ -1,6 +1,6 @@
-import * as d3 from 'd3';
-import { resetTraversal } from './bst-traversal'
-import '../stylesheets/style.css'
+import * as d3 from "d3";
+import { resetTraversal } from "./bst-traversal";
+import "../stylesheets/style.css";
 
 // **************** Draw Tree Layout ****************
 
@@ -8,17 +8,18 @@ function drawTree(data) {
   // Set dimensions and margins for diagram
   let margin = {
     top: 80,
-    bottom: 80
+    bottom: 80,
   };
   let width = 1000;
   let height = 800 - margin.top - margin.bottom;
 
-
   // append the svg object to the body of the page
   // appends a 'group' element to 'svg'
-  // moves the 'group' element to the top left margin   
-  let svg = d3.select("#d3tree").append('svg')
-    .attr('id', 'currentTree')
+  // moves the 'group' element to the top left margin
+  let svg = d3
+    .select("#d3tree")
+    .append("svg")
+    .attr("id", "currentTree")
     .attr("width", "100%")
     .attr("height", height + margin.top + margin.bottom)
     .attr("viewBox", "0 0 1000 1000")
@@ -29,16 +30,16 @@ function drawTree(data) {
   let duration = 750;
 
   // Declares a tree layout and assigns the size
-  let treemap = d3.tree().size([width, height + margin-top]);
+  let treemap = d3.tree().size([width, height + margin - top]);
 
   // Assigns parent, children, height, depth
-  let root = d3.hierarchy(data, function(d) {
+  let root = d3.hierarchy(data, function (d) {
     return d.children;
   });
 
   root.x0 = width / 2;
   root.y0 = 0;
- 
+
   // Collapse after the second level
   // root.children.forEach(collapse);
 
@@ -47,8 +48,8 @@ function drawTree(data) {
   // Collapse the node and all it's children
   function collapse(d) {
     if (d.children) {
-      d._children = d.children
-      d._children.forEach(collapse)
+      d._children = d.children;
+      d._children.forEach(collapse);
       d.children = null;
     }
   }
@@ -58,7 +59,7 @@ function drawTree(data) {
     // Assigns the x and y position for the nodes
 
     resetTraversal();
-    
+
     let treeData = treemap(root);
 
     // Compute the new tree layout.
@@ -67,122 +68,128 @@ function drawTree(data) {
 
     // Normalize for fixed-depth
     nodes.forEach(function (d) {
-      d.y = d.depth * 100
+      d.y = d.depth * 100;
     });
 
     // **************** Nodes Section ****************
     // Update the nodes...
-    let node = svg.selectAll('g.node')
-      .data(nodes, function (d) {
-        return d.id || (d.id = ++i);
-      });
+    let node = svg.selectAll("g.node").data(nodes, function (d) {
+      return d.id || (d.id = ++i);
+    });
 
     // Enter any new nodes at the parent's previous position.
-    let nodeEnter = node.enter().append('g')
-      .attr('class', function (d){
-        if (isNaN(d.value)){
-          return 'hidden'
+    let nodeEnter = node
+      .enter()
+      .append("g")
+      .attr("class", function (d) {
+        if (isNaN(d.value)) {
+          return "hidden";
         } else {
-          return 'node'
+          return "node";
         }
       })
-      .attr('id', function(d){
-        let id = `node${d.value}`
+      .attr("id", function (d) {
+        let id = `node${d.value}`;
         return id;
       })
       .attr("transform", function (d) {
         return "translate(" + source.x0 + "," + source.y0 + ")";
       })
-      .on('click', click);
+      .on("click", click);
 
     // Add Circle for the nodes
 
-    nodeEnter.append('circle')
-      .attr('class', 'node')
-      .attr('r', 1e-6)
-      .attr('value', function (d) {
+    nodeEnter
+      .append("circle")
+      .attr("class", "node")
+      .attr("r", 1e-6)
+      .attr("value", function (d) {
         if (isNaN(d.value)) {
           return "";
         }
         return d.data.value;
       })
-      .style("fill", function(d) {
+      .style("fill", function (d) {
         return d._children ? "lightsteelblue" : "#fff";
       });
 
-    nodeEnter.append('text')
-      .attr('dy', '0')
-      .attr('dx', '0')
-      .attr('text-anchor', 'middle')
-      .attr('alignment-baseline', "central")
-      .attr('value', function(d){
+    nodeEnter
+      .append("text")
+      .attr("dy", "0")
+      .attr("dx", "0")
+      .attr("text-anchor", "middle")
+      .attr("alignment-baseline", "central")
+      .attr("value", function (d) {
         if (isNaN(d.value)) {
           return "";
         }
         return d.data.value;
       })
-      .text(function(d) {
+      .text(function (d) {
         if (isNaN(d.value)) {
           return "";
         }
         return d.data.value;
-      })
+      });
 
     // Update
     let nodeUpdate = nodeEnter.merge(node);
 
     // Transition to the proper position for the nodes
-    nodeUpdate.transition()
+    nodeUpdate
+      .transition()
       .duration(duration)
-      .attr("transform", function(d) {
+      .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
 
     // Update the node attributes and style
-    nodeUpdate.select('circle.node')
-      .attr('r', 30)
-      .style("fill", function(d) {
+    nodeUpdate
+      .select("circle.node")
+      .attr("r", 30)
+      .style("fill", function (d) {
         return d._children ? "lightsteelblue" : "#fff";
       })
-      .attr('cursor', 'pointer');
+      .attr("cursor", "pointer");
 
     // Remove any exiting nodes
-    let nodeExit = node.exit().transition()
+    let nodeExit = node
+      .exit()
+      .transition()
       .duration(duration)
-      .attr("transform", function(d) {
+      .attr("transform", function (d) {
         return "translate(" + source.x + "," + source.y + ")";
       })
       .remove();
 
     // On exit reduce the node circles size to 0
-    nodeExit.select('circle')
-      .attr('r', 1e-6);
+    nodeExit.select("circle").attr("r", 1e-6);
 
-    // On exit reduce the opacity of text lables  
-    nodeExit.select('text')
-      .style('fill-opacity', 1e-6)
+    // On exit reduce the opacity of text lables
+    nodeExit.select("text").style("fill-opacity", 1e-6);
 
     // **************** Links Section ****************
 
     // Update the links...
-    let link = svg.selectAll('path.link')
-      .data(links, function (d) {
-        return d.id;
-      });
+    let link = svg.selectAll("path.link").data(links, function (d) {
+      return d.id;
+    });
 
     // Enter any new links at the parent's previous position
-    let linkEnter = link.enter().insert('path', "g")
+    let linkEnter = link
+      .enter()
+      .insert("path", "g")
       .attr("class", function (d) {
         if (isNaN(d.value)) {
-          return "link hidden "
+          return "link hidden ";
         }
         return "link";
       })
 
-      .attr('d', function (d) {
+      .attr("d", function (d) {
         let o = {
           x: source.x0,
-          y: source.y0
+          y: source.y0,
         };
         return diagonal(o, o);
       });
@@ -191,19 +198,22 @@ function drawTree(data) {
     let linkUpdate = linkEnter.merge(link);
 
     // Transition back to the parent element position
-    linkUpdate.transition()
+    linkUpdate
+      .transition()
       .duration(duration)
-      .attr('d', function (d) {
-        return diagonal(d, d.parent)
+      .attr("d", function (d) {
+        return diagonal(d, d.parent);
       });
 
     // Remove any existing links
-    let linkExit = link.exit().transition()
+    let linkExit = link
+      .exit()
+      .transition()
       .duration(duration)
-      .attr('d', function (d) {
+      .attr("d", function (d) {
         let o = {
           x: source.x,
-          y: source.y
+          y: source.y,
         };
       })
       .remove();
@@ -219,7 +229,7 @@ function drawTree(data) {
       const path = `M ${s.x} ${s.y}
         C ${(s.x + d.x) / 2} ${s.y},
           ${(s.x + d.x) / 2} ${d.y},
-          ${d.x} ${d.y}`
+          ${d.x} ${d.y}`;
 
       return path;
     }
@@ -238,5 +248,4 @@ function drawTree(data) {
   }
 }
 
-
-export { drawTree }
+export { drawTree };
